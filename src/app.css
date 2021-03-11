@@ -1,0 +1,11 @@
+*{
+    background-color: rgb(154, 1, 243);
+box-sizing: border-box;
+}
+.App{
+    font-family: "Akaya Telivigala";
+    text-align: center;
+    width: 100%;
+    color: white;
+    padding-top: 100px;
+}

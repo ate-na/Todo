@@ -1,0 +1,38 @@
+*{
+    box-sizing: border-box;
+}
+.show{
+    display: inline-flex;
+    flex-direction: row;
+    font-size: 1.2rem;
+    color: black;
+    flex-wrap: nowrap;
+    width: 300px;
+    border: 1px solid black;
+    height: 40px;
+    margin-top: 40px;
+    background-color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center; 
+}
+.show div{
+    background-color: white;
+    padding-top: 8px;
+}
+.reject,.accept{
+    position: relative;
+    right: -230px;
+    bottom: 2px;
+}
+.accept i{
+    margin-top: 4px;
+    color: green;
+}
+.accept i,
+.reject i{
+    
+    font-size: 1.2rem;
+}
+.reject i{
+    color: red;
+}
