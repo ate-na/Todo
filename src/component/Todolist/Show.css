@@ -1,0 +1,8 @@
+.Show{
+display: flex;
+margin-left: 550px;
+margin-right: auto;
+justify-content: center;
+flex-direction: column;
+align-content: center;
+}

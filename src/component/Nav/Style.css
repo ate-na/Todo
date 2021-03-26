@@ -1,0 +1,28 @@
+*{
+
+    box-sizing: border-box;
+}
+nav{
+    padding-top: -10px;
+    height: 50px;
+}
+ul{
+    background-color:   rgb(96, 85, 253);
+    display: flex;
+    list-style-type: none;
+    height: 50px;
+}
+li{
+    display: flex;
+    background-color:   rgb(96, 85, 253);
+    width: 14%;  
+    height: 50px
+}
+.Link{
+    background-color:  rgb(96, 85, 253);
+    height: 50px;
+    font-size: 1.2rem;
+    text-decoration: none;
+   color: black;
+   padding-top: 12px;
+}

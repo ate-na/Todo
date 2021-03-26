@@ -1,23 +1,23 @@
 import React,{Component} from 'react';
-import SearchBar from './component/SearchBar';
-import Show from './component/Show'
-import './app.css';
-class App extends Component{
-    state={search:[]}
-    searchHandler=(evnt)=>{
-        console.log(evnt);
-        this.setState({search:evnt})
-    }
-    componentDidMount(){
+import {Route,Switch} from 'react-router-dom'
+import Todolistpage from  './pages/Todolistpage';
+import Home from './pages/Home';
+import Nav from './component/Nav/Nav';
+import Authpage from './pages/Authpage';
 
+class App extends Component{
+    render(){
+        return (
+            <>
+            <Nav/>
+            <Switch>
+            <Route path="/" exact ><Home/></Route>
+            <Route path="/auth" ><Authpage/></Route>
+            <Route path="/Todolist" ><Todolistpage/></Route>
+            </Switch>
+            <Todolistpage/>
+            </>
+        )
     }
-render(){
-    return(<div className="App">
-        <h1>Your Todo List</h1>
-        <SearchBar searchHandler={this.searchHandler}/>
-        <Show search={this.state.search}/>
-        
-        </div>)
-}
 }
 export default App;

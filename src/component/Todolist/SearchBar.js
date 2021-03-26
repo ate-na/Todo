@@ -5,9 +5,12 @@ class SearchBar extends Component{
     onchangeHandler=(event)=>{
         this.setState({searchterm:event.target.value})
     }
+    onchangeselect=(e)=>{
+        this.props.signhandler(e.target.value);
+    }
      onSubmitHandler=(even)=>{
         even.preventDefault()
-        this.props.searchHandler(this.state.searchterm)
+        this.props.searchHandler([...this.props.todos,{name:this.state.searchterm,check:false,id: Math.random()*100}])
         this.setState({searchterm:''})
     }
     render(){
@@ -22,12 +25,17 @@ class SearchBar extends Component{
                 onChange={this.onchangeHandler}
                 value={this.state.searchterm}
                 />
-                <button ><i class="fas fa-plus-square"></i></button>
+                <button ><i className="fas fa-plus-square"></i></button>
                 </div>
-                <select name="sort" id="sort">
+                <select 
+                name="sort" 
+                id="sort"
+                onChange={this.onchangeselect}
+                value={this.props.sign}
+                >
                 <option >ALL</option>
-                <option > signed</option>
-                <option >unsigned</option>
+                <option > finished</option>
+                <option >unfinished</option>
             </select>
                 </form>
              

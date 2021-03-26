@@ -1,0 +1,12 @@
+*{
+    background-color: rgb(109, 119, 248);
+box-sizing: border-box;
+}
+.todo{
+    font-family: 'Source Code Pro', monospace;
+    text-align: center;
+    width: 100%;
+    color: white;
+    padding-top: 50px;
+}
+
