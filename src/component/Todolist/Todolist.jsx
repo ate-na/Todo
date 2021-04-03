@@ -1,30 +1,59 @@
 import React,{Component} from 'react';
 import SearchBar from './SearchBar';
 import Show from './Show'
-import './Todolist.css'
+import './Todolist.css';
+import Cookies from 'universal-cookie';
+import axios from 'axios';
 class Todolist extends Component{
     state={todos:[],filtertodos :[],sign:'all'}
     signhandler=(option)=>{
         this.setState({sign:option})
+        }
+        cookies=new Cookies();
+        token=this.cookies.get('token');
 
-    }
+        componentDidMount=async()=>{
+            try {
+                const userdata=await axios.get('http://localhost:8000/api/v1/users/me/',{
+                    headers:{
+                        Authorization :`Bearer ${this.token}`
+                    }
+                })
+                this.gettodos();
+                console.log(userdata.data.data.doc.username)
+                this.props.setusername(userdata.data.data.doc.username)
+            } catch (err) {
+                console.log(err.response);
+            }
+        }
+        gettodos=async()=>{
+            const userTodo=await axios.get('http://localhost:8000/api/v1/todos/',{
+                headers:{
+                    Authorization :`Bearer ${this.token}`
+                }
+            })
+            console.log(userTodo);
+             this.settodos(userTodo.data.todos)
+            console.log(userTodo.data.todos);
+        }
     componentDidUpdate(prevProps, prevState){
         if(this.state.todos !==prevState.todos ||
             this.state.sign !==prevState.sign){
             this.filteroption();
         }
+          
     }
     filteroption=()=>{
         switch(this.state.sign){
             case 'finished':
                 this.setState({
                     filtertodos:this.state.todos.filter(
-                        (item)=>item.check===true)});
+                        (item)=>item.isChecked===true)});
             break;
             case 'unfinished':
                 this.setState({
                     filtertodos:this.state.todos.filter(
-                        (item)=>item.check===false)});
+                        (item)=>item.isChecked===false)});
             break;
             default:
                 this.setState({filtertodos:this.state.todos})
@@ -37,16 +66,18 @@ class Todolist extends Component{
 render(){
     return(<div className="todo">
         <h1>Your Todo List</h1>
-        <SearchBar 
+        <SearchBar
+        token={this.token} 
         todos={this.state.todos}
         searchHandler={this.settodos}
         signhandler={this.signhandler}
         sign={this.state.sign}/>
         <Show 
+        token={this.token}
         settodos={this.settodos}
         todos={this.state.todos}
         filtertodos={this.state.filtertodos}
-        
+       
         />
         </div>)
     }

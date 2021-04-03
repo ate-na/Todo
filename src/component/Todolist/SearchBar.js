@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './SearchBar.css'
+import  '../Auth/Auth.css'
+import axios from 'axios'
 class SearchBar extends Component{
     state={searchterm:''}
     onchangeHandler=(event)=>{
@@ -8,14 +10,31 @@ class SearchBar extends Component{
     onchangeselect=(e)=>{
         this.props.signhandler(e.target.value);
     }
-     onSubmitHandler=(even)=>{
+     onSubmitHandler=async(even)=>{
         even.preventDefault()
-        this.props.searchHandler([...this.props.todos,{name:this.state.searchterm,check:false,id: Math.random()*100}])
+        try{
+        const posttodos=await axios.post('http://localhost:8000/api/v1/todos/',{
+        
+            name:'todo',
+            description:this.state.searchterm,
+            isChecked:false
+     },{    
+        headers:{
+                Authorization :`Bearer ${this.props.token}`
+            }}
+        )
+        // console.log(posttodos.data.data._id)
+        this.props.searchHandler([...this.props.todos,{description:this.state.searchterm,isChecked:false,_id: posttodos.data.data._id
+        }])
         this.setState({searchterm:''})
+    }catch(err){
+        return alert(err.response.data.message);
     }
+}
+
     render(){
         return(
-        <div>
+        <div className="Searchterm">
             <form onSubmit={this.onSubmitHandler}>
                <div className="formn">
                 <label htmlFor='inpt'></label>
@@ -32,6 +51,7 @@ class SearchBar extends Component{
                 id="sort"
                 onChange={this.onchangeselect}
                 value={this.props.sign}
+                className="select"
                 >
                 <option >ALL</option>
                 <option > finished</option>

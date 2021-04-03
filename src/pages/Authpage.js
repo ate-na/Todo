@@ -1,5 +1,9 @@
 import React from 'react';
-const Authpage=()=>{
-    return(<div>Authpage</div>)  
+import Auth from '../component/Auth/Auth'
+const Authpage=({authhandler,auth})=>{
+    return(<div>
+       <Auth auth={auth}
+       authhandler={authhandler}/>
+    </div>)  
 } 
 export default Authpage;
